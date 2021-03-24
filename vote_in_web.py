@@ -10,7 +10,7 @@ import random
 def read_num(html):
 	try:
 		read_num = int(re.compile('<span>票数.*?(\d+).*?</span>').search(html).group(1))
-		print('给兵哥哥怒投5票，当前票数：', read_num)
+		print('给'+ str(idn) +'怒投5票，当前票数：', read_num)
 	except Exception:
 		print('解析出错')
 		return None
@@ -18,7 +18,7 @@ def read_num(html):
 def get_page(url):
 	try:
 		headers = {
-			'Referer': 'http://www.fm169.cn/mvvotes.html',  # 伪装
+			'Referer': 'http://www.fm169.cn/musicvotes.html',  # 伪装
 			'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36'  # 伪装成浏览器
 		}
 		response = requests.get(url, headers=headers)
@@ -35,18 +35,18 @@ def vote(url, n):
 	ip = [i for i in range(1,256)]
 	Fake_Ip = '192.168.{}.{}'.format(random.choice(ip),random.choice(ip))
 	print('Fake_Ip: {}'.format(Fake_Ip))
-	datas = {'id': 7132}
+	datas = {'id': idn}
 	header = {
 		'Accept': 'text/plain, */*; q=0.01',
 		'Accept-Encoding': 'gzip, deflate',
-		'Accept-Language': 'zh-CN,zh;q=0.9',
-		'Content-Length': '6',
+		'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+		'Content-Length': '7',
 		'Content-Type': 'application/x-www-form-urlencoded',
 		'Host': 'www.fm169.cn',
 		'Origin': 'http://www.fm169.cn',
 		'Proxy-Connection': 'keep-alive',
-		'Referer': 'http://www.fm169.cn/mvvotes.html',
-		'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36',
+		'Referer': 'http://www.fm169.cn/musicvotes.html',
+		'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
 		'X-Requested-With': 'XMLHttpRequest',
 		'X-Real-Ip':Fake_Ip,
 		'X-Forwarded-For':Fake_Ip
@@ -55,7 +55,7 @@ def vote(url, n):
 		for i in range(n):
 			response = requests.post(url, headers=header, data = datas)
 			votes_num = int(re.compile('.*?(\d+).*?').search(response.text).group(1))
-		print('给兵哥哥怒投5票，当前票数：',votes_num)
+		print('给'+ str(idn) +'怒投5票，当前票数：',votes_num)
 
 	except Exception:
 		print('传参出错')
@@ -63,7 +63,7 @@ def vote(url, n):
 def main():
 
 	try:
-		url = 'http://www.fm169.cn/musicvotelist_s7132.html'  # 网页浏览的url
+		url = 'http://www.fm169.cn/musicvotes.html'  # 网页浏览的url
 		url2 = 'http://www.fm169.cn/zanmusics.html'  # 待刷票数的url
 		for i in range(300):
 			vote(url2,5)
@@ -73,4 +73,6 @@ def main():
 		print('出错啦！')
 
 if __name__ == '__main__':
+	idn = input('请输入刷票id:')
+	#idn =7441
 	main()
