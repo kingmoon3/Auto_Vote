@@ -10,7 +10,7 @@ import random
 def read_num(html):
 	try:
 		read_num = int(re.compile('<span>票数.*?(\d+).*?</span>').search(html).group(1))
-		print('给'+ str(idn) +'怒投5票，当前票数：', read_num)
+		print('给'+ str(idn) +'怒投5票，当前票数：', \033[1;47m\033[1;35mread_num\033[0m \033[0m)
 	except Exception:
 		print('解析出错')
 		return None
@@ -55,7 +55,7 @@ def vote(url, n):
 		for i in range(n):
 			response = requests.post(url, headers=header, data = datas)
 			votes_num = int(re.compile('.*?(\d+).*?').search(response.text).group(1))
-		print('给'+ str(idn) +'怒投5票，当前票数：',votes_num)
+		print('给'+ str(idn) +'怒投5票，当前票数：',\033[1;47m\033[1;35mvotes_num\033[0m \033[0m)
 
 	except Exception:
 		print('传参出错')
