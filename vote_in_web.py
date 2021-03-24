@@ -65,7 +65,7 @@ def main():
 	try:
 		url = 'http://www.fm169.cn/musicvotes.html'  # 网页浏览的url
 		url2 = 'http://www.fm169.cn/zanmusics.html'  # 待刷票数的url
-		for i in range(300):
+		for i in range(5000):  # 刷票次数控制 总刷票数为次数*5
 			vote(url2,5)
 			# get_page(url) #浏览网页
 
